@@ -26,7 +26,7 @@ class ButtomCard extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: const Text(
                     'ประวัติการรักษา',
-                    style: TextStyle(color: Colors.black, fontSize: 14),
+                    style: TextStyle(color: Color.fromARGB(255, 12, 105, 180), fontSize: 14, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -50,7 +50,7 @@ class ButtomCard extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: const Text(
                     'สิทธิประกันสุขภาพ',
-                    style: TextStyle(color: Colors.black, fontSize: 14),
+                    style: TextStyle(color: Color.fromARGB(255, 12, 105, 180), fontSize: 14, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),

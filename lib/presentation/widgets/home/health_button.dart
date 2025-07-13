@@ -12,18 +12,14 @@ class HealthButton extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 255, 255),
             borderRadius: BorderRadius.circular(2),
             border: Border.all(color: Colors.grey.shade400),
           ),
-          padding: const EdgeInsets.only(left: 10, top: 10),
-          child: const Text(
-            '',
-            style: TextStyle(
-              color: Color.fromARGB(255, 12, 105, 180),
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
+          clipBehavior:
+              Clip.hardEdge, 
+          child: Image.asset(
+            'assets/images/card.png', 
+            fit: BoxFit.cover, 
           ),
         ),
       ),

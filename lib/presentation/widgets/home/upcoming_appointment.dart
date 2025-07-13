@@ -48,7 +48,7 @@ class _UpcomingAppointment extends State<UpcomingAppointment> {
                       border: Border.all(color: Colors.grey.shade400),
                     ),
                     padding: const EdgeInsets.only(left: 10, top: 10),
-                    child: Column(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
@@ -92,6 +92,54 @@ class _UpcomingAppointment extends State<UpcomingAppointment> {
                                 ],
                               ),
                             ),
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'นัดหมายเช็คอาการ',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 12, 105, 180),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                'พญ สมศรี  สมอนศรี',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 12, 105, 180),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Text(
+                                    '12.00 - 13.00',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 12, 105, 180),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    'โรงพยาบาลรามาธิบดี',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 12, 105, 180),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -114,7 +162,7 @@ class _UpcomingAppointment extends State<UpcomingAppointment> {
                       border: Border.all(color: Colors.grey.shade400),
                     ),
                     padding: const EdgeInsets.only(left: 10, top: 10),
-                    child: Column(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
@@ -140,7 +188,7 @@ class _UpcomingAppointment extends State<UpcomingAppointment> {
                                     ),
                                   ),
                                   Text(
-                                    '14',
+                                    '28',
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 12, 105, 180),
                                       fontSize: 20,
@@ -155,11 +203,68 @@ class _UpcomingAppointment extends State<UpcomingAppointment> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
+
+                                  
+
+
+
                                 ],
                               ),
                             ),
                           ),
                         ),
+
+
+                                                Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'นัดหมายเช็คอาการ',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 12, 105, 180),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                'พญ สมศรี  สมอนศรี',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 12, 105, 180),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Text(
+                                    '10.00 - 11.00',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 12, 105, 180),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    'โรงพยาบาลรามาธิบดี',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 12, 105, 180),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+
+
+                        
                       ],
                     ),
                   ),
