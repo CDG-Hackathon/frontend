@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:frontend/presentation/screens/main_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
 
 void main() {
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'CuraQ',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white, 
+        scaffoldBackgroundColor: Colors.white,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           foregroundColor: Colors.white,
@@ -25,7 +27,22 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialRoute: '/',
-      routes: {'/': (context) => const HomeScreen()},
+      routes: {
+        '/':
+            (context) => Stack(
+              children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    'assets/BGAnimation.png',
+                    fit:
+                        BoxFit
+                            .cover, 
+                  ),
+                ),
+                MainScreen(),
+              ],
+            ),
+      },
     );
   }
 }
