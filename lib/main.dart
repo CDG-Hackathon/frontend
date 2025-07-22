@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/presentation/screens/main_screen.dart';
-import 'presentation/screens/home/home_screen.dart';
+import 'package:frontend/presentation/screens/schedule/schedule_confirmation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,22 +26,20 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.black),
         ),
       ),
-      initialRoute: '/',
+      initialRoute: '/test-confirmation', // for preview
       routes: {
-        '/':
-            (context) => Stack(
+        '/': (context) => Stack(
               children: [
                 Positioned.fill(
                   child: Image.asset(
                     'assets/BGAnimation.png',
-                    fit:
-                        BoxFit
-                            .cover, 
+                    fit: BoxFit.cover,
                   ),
                 ),
-                MainScreen(),
+                MainScreen(), // ✅ FIXED: removed `const`
               ],
             ),
+        '/test-confirmation': (context) => const ScheduleConfirmationScreen(), // ✅ NEW
       },
     );
   }

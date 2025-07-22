@@ -17,7 +17,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 12, 105, 180),
+            color: Color.fromARGB(255, 26, 39, 50),
           ),
         ),
         SizedBox(height: 10),
