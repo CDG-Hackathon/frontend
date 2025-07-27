@@ -61,6 +61,7 @@ class _LoginFormState extends State<LoginForm> {
       child: Form(
         key: _formKey,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextFormField(
               controller: idCardController,
@@ -87,35 +88,50 @@ class _LoginFormState extends State<LoginForm> {
                           : null,
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: isLoading ? null : login,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 12, 105, 180), 
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 24,
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: isLoading ? null : login,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 12, 105, 180),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12), 
+                child:
+                    isLoading
+                        ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                        : const Text(
+                          "เข้าสู่ระบบ",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+            Align(
+              alignment: Alignment.center,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/forgot-password');
+                },
+                child: const Text(
+                  'ลืมรหัสผ่าน',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
-              child:
-                  isLoading
-                      ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          color: Colors.white, 
-                          strokeWidth: 2,
-                        ),
-                      )
-                      : const Text(
-                        "เข้าสู่ระบบ",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white, 
-                        ),
-                      ),
             ),
           ],
         ),

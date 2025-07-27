@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/screens/auth/login_screen.dart';
+import 'package:frontend/presentation/screens/auth/ocr_screen.dart';
 import 'package:frontend/presentation/screens/auth/register_screen.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -29,10 +30,7 @@ class AuthScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
+                    Navigator.pushReplacementNamed(context, '/login');
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -54,14 +52,14 @@ class AuthScreen extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
+                    Navigator.pushReplacementNamed(context, '/ocr');
                   },
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    side: BorderSide(color: Color.fromARGB(255, 12, 105, 180), width: 2),
+                    side: BorderSide(
+                      color: Color.fromARGB(255, 12, 105, 180),
+                      width: 2,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

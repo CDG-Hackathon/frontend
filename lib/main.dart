@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/screens/auth/auth_screen.dart';
+import 'package:frontend/presentation/screens/auth/face_recognition_screen.dart';
 import 'package:frontend/presentation/screens/auth/login_screen.dart';
+import 'package:frontend/presentation/screens/auth/ocr_screen.dart';
+import 'package:frontend/presentation/screens/auth/register_screen.dart';
 import 'package:frontend/presentation/screens/main_screen.dart';
 
 void main() {
@@ -67,6 +70,48 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   const AuthScreen(),
+                ],
+              ),
+            ),
+        '/ocr':
+            (context) => Scaffold(
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/BGAnimation.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  OcrScreen(),
+                ],
+              ),
+            ),
+        '/face':
+            (context) => Scaffold(
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/BGAnimation.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  FaceRecognitionScreen(),
+                ],
+              ),
+            ),
+        '/register':
+            (context) => Scaffold(
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/BGAnimation.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  RegisterScreen(idNumber: '', name: '',),
                 ],
               ),
             ),
