@@ -39,7 +39,7 @@ class ButtomCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 30), // Space between buttons
+          const SizedBox(width: 30),
           SizedBox(
             width: 180,
             child: Padding(

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:frontend/presentation/screens/main_screen.dart';
 import 'presentation/screens/home/home_screen.dart';
 import 'presentation/screens/profile/profile_screen.dart';
+import 'presentation/screens/appoint/appointment_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.black),
         ),
       ),
-      initialRoute: '/profile',
+      initialRoute: '/appoint',
       routes: {
         '/':
             (context) => Stack(
@@ -52,6 +53,20 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   const ProfileScreen(),
+                ],
+              ),
+            ),
+        '/appoint':
+            (context) => Scaffold(
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/BGAnimation.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const AppointmentScreen(),
                 ],
               ),
             ),
