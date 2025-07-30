@@ -4,7 +4,12 @@ import 'package:frontend/presentation/screens/auth/face_recognition_screen.dart'
 import 'package:frontend/presentation/screens/auth/login_screen.dart';
 import 'package:frontend/presentation/screens/auth/ocr_screen.dart';
 import 'package:frontend/presentation/screens/auth/register_screen.dart';
+import 'package:frontend/presentation/screens/home/home_screen.dart';
 import 'package:frontend/presentation/screens/main_screen.dart';
+import 'package:frontend/presentation/screens/profile/profile_screen.dart';
+import 'package:frontend/presentation/screens/schedule/schedule_confirmation.dart';
+import 'package:frontend/presentation/screens/schedule/schedule_select_screen.dart';
+import 'package:frontend/presentation/screens/schedule/schedule_time_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -111,7 +116,63 @@ class MyApp extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  RegisterScreen(idNumber: '', name: '',),
+                  RegisterScreen(idNumber: '', name: ''),
+                ],
+              ),
+            ),
+        '/schedule-select':
+            (context) => Scaffold(
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/BGAnimation.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  ScheduleSelectScreen(),
+                ],
+              ),
+            ),
+        '/schedule-time':
+            (context) => Scaffold(
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/BGAnimation.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  ScheduleTimeScreen(),
+                ],
+              ),
+            ),
+        '/schedule-confirmation':
+            (context) => Scaffold(
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/BGAnimation.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  ScheduleConfirmationScreen(),
+                ],
+              ),
+            ),
+        '/profile':
+            (context) => Scaffold(
+              body: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      'assets/BGAnimation.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  ProfileScreen(),
                 ],
               ),
             ),
