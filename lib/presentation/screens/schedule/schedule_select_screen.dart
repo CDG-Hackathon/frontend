@@ -27,7 +27,7 @@ class ScheduleSelectScreen extends StatelessWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/auth');
+                      Navigator.pop(context);
                     },
                     icon: Icon(Icons.arrow_back, color: Colors.blue[700]),
                     label: Text(
@@ -81,9 +81,110 @@ class SelectableBoxList extends StatefulWidget {
 }
 
 class _SelectableBoxListState extends State<SelectableBoxList> {
-  int selectedIndex = 0;
+  int selectedIndex = -1;
 
   final List<String> titles = ['นัดหมายเเพทย์', 'ตรวจสุขภาพ', 'ฉีดวัคซีน'];
+
+  final TextEditingController _detailsController = TextEditingController();
+
+  void _showDetailsDialog(String title) {
+    _detailsController.clear();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          titlePadding: const EdgeInsets.all(16),
+          contentPadding: const EdgeInsets.all(16),
+          title: Row(
+            children: [
+              const Icon(Icons.info_outline, color: Colors.blue),
+              const SizedBox(width: 8),
+              Expanded(child: Text('กรอกรายละเอียด - $title')),
+            ],
+          ),
+          content: TextField(
+            controller: _detailsController,
+            decoration: InputDecoration(
+              hintText: 'พิมพ์รายละเอียดอาการ...',
+              filled: true,
+              fillColor: Colors.grey[100],
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            maxLines: 4,
+          ),
+          actionsPadding: const EdgeInsets.only(right: 16, bottom: 12),
+          actions: [
+            OutlinedButton(
+              onPressed: () => Navigator.pop(context),
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text('ยกเลิก'),
+            ),
+            FilledButton(
+              onPressed: () {
+                final symptom = _detailsController.text;
+                Navigator.pop(context); 
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  _showPredictionDialog(symptom); 
+                });
+              },
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.blue[700],
+                textStyle: const TextStyle(color: Colors.white),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text('บันทึก'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showPredictionDialog(String symptom) {
+    String result;
+    if (symptom.contains('ไข้')) {
+      result = 'อาจเป็นไข้หวัด หรือ ไข้ไวรัส';
+    } else if (symptom.contains('ปวดหัว')) {
+      result = 'อาจเป็นไมเกรน หรือ ภาวะเครียดสะสม';
+    } else if (symptom.contains('ไอ') || symptom.contains('เจ็บคอ')) {
+      result = 'อาจเป็นหลอดลมอักเสบ หรือ หวัดธรรมดา';
+    } else {
+      result = 'ยังไม่สามารถวิเคราะห์ได้แน่ชัด ควรปรึกษาแพทย์';
+    }
+
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            title: const Text('ผลการวิเคราะห์อาการ'),
+            content: Text(result),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('ปิด'),
+              ),
+            ],
+          ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +197,8 @@ class _SelectableBoxListState extends State<SelectableBoxList> {
             setState(() {
               selectedIndex = index;
             });
+
+            _showDetailsDialog(titles[index]);
           },
           child: Container(
             height: 80,
