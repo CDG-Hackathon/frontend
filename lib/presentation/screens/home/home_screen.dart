@@ -3,6 +3,7 @@ import 'package:frontend/presentation/widgets/home/buttom_card.dart';
 import 'package:frontend/presentation/widgets/home/health_button.dart';
 import 'package:frontend/presentation/widgets/home/profile_header.dart';
 import 'package:frontend/presentation/widgets/home/upcoming_appointment.dart';
+import 'package:frontend/presentation/widgets/navbar/navbar_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 20,),
+            const SizedBox(height: 20),
             ProfileHeader(),
             ButtomCard(),
             UpcomingAppointment(),
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 }

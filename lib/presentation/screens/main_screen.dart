@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/screens/home/home_screen.dart';
+import 'package:frontend/presentation/screens/profile/profile_screen.dart';
+import 'package:frontend/presentation/screens/schedule/schedule_select_screen.dart';
 import 'package:frontend/presentation/widgets/navbar/navbar_widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -10,7 +12,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = [HomeScreen(), HomeScreen(), HomeScreen()];
+  final List<Widget> _screens = [HomeScreen(), ScheduleSelectScreen(), ProfileScreen()];
 
   void _onTabSelected(int index) {
     setState(() {

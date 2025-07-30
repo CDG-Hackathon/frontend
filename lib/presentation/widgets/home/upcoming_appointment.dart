@@ -43,7 +43,7 @@ class _UpcomingAppointment extends State<UpcomingAppointment> {
                   padding: const EdgeInsets.only(right: 10.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 210, 226, 255),
+                      color: const Color.fromARGB(85, 210, 226, 255),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.grey.shade400),
                     ),
@@ -157,7 +157,7 @@ class _UpcomingAppointment extends State<UpcomingAppointment> {
                   padding: const EdgeInsets.only(right: 10.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 210, 226, 255),
+                      color: const Color.fromARGB(85, 210, 226, 255),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.grey.shade400),
                     ),
@@ -203,19 +203,13 @@ class _UpcomingAppointment extends State<UpcomingAppointment> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-
-                                  
-
-
-
                                 ],
                               ),
                             ),
                           ),
                         ),
 
-
-                                                Padding(
+                        Padding(
                           padding: const EdgeInsets.only(left: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,9 +256,6 @@ class _UpcomingAppointment extends State<UpcomingAppointment> {
                             ],
                           ),
                         ),
-
-
-                        
                       ],
                     ),
                   ),

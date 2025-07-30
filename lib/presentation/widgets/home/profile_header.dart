@@ -11,7 +11,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
+      children:  [
         Text(
           'หน้าหลัก',
           style: TextStyle(
