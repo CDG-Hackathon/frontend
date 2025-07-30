@@ -40,11 +40,11 @@ class _DetailContact extends State<DetailContact> {
 
               Row(
                 children: const [
-                  Icon(Icons.phone, size: 20, color: Colors.black87),
+                  Icon(Icons.phone, size: 20, color: Color.fromARGB(255, 12, 105, 180)),
                   SizedBox(width: 8),
                   Text(
                     '081-234-5678',
-                    style: TextStyle(fontSize: 14, color: Colors.black87),
+                    style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 12, 105, 180)),
                   ),
                 ],
               ),
@@ -53,11 +53,11 @@ class _DetailContact extends State<DetailContact> {
 
               Row(
                 children: const [
-                  Icon(Icons.email, size: 20, color: Colors.black87),
+                  Icon(Icons.email, size: 20, color: Color.fromARGB(255, 12, 105, 180)),
                   SizedBox(width: 8),
                   Text(
                     'user@example.com',
-                    style: TextStyle(fontSize: 14, color: Colors.black87),
+                    style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 12, 105, 180)),
                   ),
                 ],
               ),
