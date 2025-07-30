@@ -109,6 +109,17 @@ class AppointmentForm extends StatelessWidget {
                             ),
                           ),
                         ),
+                        DropdownMenuItem(
+                          value: 'สิทธิข้าราชการ',
+                          child: Text(
+                            'สิทธิข้าราชการ',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 12, 105, 180),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ],
                       onChanged: (String? newValue) {},
                       icon: const Icon(

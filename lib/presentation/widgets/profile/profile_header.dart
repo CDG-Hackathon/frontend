@@ -13,7 +13,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
     return Column(
       children: const [
         Text(
-          'ยืนยันข้อมูล',
+          'หน้าหลัก',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

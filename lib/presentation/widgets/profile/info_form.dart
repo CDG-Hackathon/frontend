@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class PersonalInfoForm extends StatelessWidget {
   const PersonalInfoForm({super.key});
 
-  // Helper method to create a styled text field container
   Widget _buildStyledTextField({
     String? initialValue,
     String? hintText,
@@ -22,12 +21,12 @@ class PersonalInfoForm extends StatelessWidget {
         controller: TextEditingController(text: initialValue),
         decoration: InputDecoration(
           hintText: hintText,
-          border: InputBorder.none, // Remove default TextField border
-          isDense: true, // Make the input more compact
-          contentPadding: EdgeInsets.zero, // Remove default padding
+          border: InputBorder.none,
+          isDense: true,
+          contentPadding: EdgeInsets.zero,
         ),
         style: const TextStyle(
-          color: Color.fromARGB(255, 12, 105, 180), // Blue text
+          color: Color.fromARGB(255, 12, 105, 180),
           fontSize: 14,
           fontWeight: FontWeight.bold,
         ),
@@ -36,17 +35,12 @@ class PersonalInfoForm extends StatelessWidget {
     );
   }
 
-  // Helper method to create a section container without the outer border,
-  // making the text fields themselves have the visible borders.
   Widget _buildSectionContainer({
     required String title,
     required Widget content,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 5.0,
-        horizontal: 16.0,
-      ), // Reduced vertical padding
+      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -108,7 +102,7 @@ class PersonalInfoForm extends StatelessWidget {
               content: Row(
                 children: [
                   SizedBox(
-                    width: 60, // Fixed width for day
+                    width: 60,
                     child: _buildStyledTextField(initialValue: '1'),
                   ),
                   const SizedBox(width: 10),
@@ -117,7 +111,7 @@ class PersonalInfoForm extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   SizedBox(
-                    width: 70, // Fixed width for year
+                    width: 70,
                     child: _buildStyledTextField(initialValue: '2001'),
                   ),
                 ],
@@ -125,7 +119,7 @@ class PersonalInfoForm extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             _buildSectionContainer(
-              title: 'เพศ:', // Title moved here as per new image
+              title: 'เพศ:',
               content: Row(
                 children: [
                   SizedBox(
@@ -149,25 +143,23 @@ class PersonalInfoForm extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 5), // Reduced spacing between sections
-            // ประวัติการแพ้ยา (Drug Allergy History)
+            const SizedBox(height: 5),
             _buildSectionContainer(
               title: 'ประวัติการแพ้ยา:',
               content: _buildStyledTextField(
-                maxLines: 5, // Multi-line input
+                maxLines: 5,
                 width: double.infinity,
               ),
             ),
-            const SizedBox(height: 5), // Reduced spacing between sections
-            // สิทธิหลักประกันสุขภาพ (Main Health Insurance Rights)
+            const SizedBox(height: 5),
             _buildSectionContainer(
               title: 'สิทธิหลักประกันสุขภาพ:',
               content: _buildStyledTextField(
-                maxLines: 5, // Multi-line input
+                maxLines: 5,
                 width: double.infinity,
               ),
             ),
-            const SizedBox(height: 10), // Reduced space at the bottom
+            const SizedBox(height: 10),
           ],
         ),
       ),

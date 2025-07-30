@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.black),
         ),
       ),
-      initialRoute: '/appoint',
+      initialRoute: '/profile',
       routes: {
         '/':
             (context) => Stack(
