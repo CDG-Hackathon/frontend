@@ -30,6 +30,8 @@ class StepProgressIndicator extends StatelessWidget {
             _circle('2', currentStep == 2),
             _line(),
             _circle('3', currentStep == 3),
+            _line(),
+            _circle('4', currentStep == 4),
           ],
         ),
         const SizedBox(height: 6),
@@ -37,12 +39,14 @@ class StepProgressIndicator extends StatelessWidget {
         // Row: Labels (aligned under each step)
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children:  [
-            _stepLabel('เริ่มต้น',  currentStep == 1),
-            SizedBox(width: 50),
-            _stepLabel('ช่วงเวลา', currentStep == 2),
-            SizedBox(width: 50),
-            _stepLabel('สิ้นสุด', currentStep == 3),
+          children: [
+            _stepLabel('เริ่มต้น', currentStep == 1),
+            SizedBox(width: 40),
+            _stepLabel('โรงพยาบาล', currentStep == 2),
+            SizedBox(width: 40),
+            _stepLabel('ช่วงเวลา', currentStep == 3),
+            SizedBox(width: 40),
+            _stepLabel('สิ้นสุด', currentStep == 4),
           ],
         ),
       ],
