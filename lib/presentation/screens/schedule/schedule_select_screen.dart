@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/screens/auth/login_screen.dart';
 import 'package:frontend/presentation/screens/auth/ocr_screen.dart';
@@ -23,34 +24,35 @@ class ScheduleSelectScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // ElevatedButton.icon(
+                  //   onPressed: () {
+                  //     Navigator.pop(context);
+                  //   },
+                  //   icon: Icon(Icons.arrow_back, color: Colors.blue[700]),
+                  //   label: Text(
+                  //     'ย้อนกลับ',
+                  //     style: TextStyle(
+                  //       color: Colors.blue[700],
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  //   style: ElevatedButton.styleFrom(
+                  //     backgroundColor: Colors.white,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(5.0),
+                  //     ),
+                  //   ),
+                  // ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.pop(context);
+                      // Navigator.pushNamed(context, '/schedule-time');
+                      Navigator.pushNamed(context, '/schedule-hospital');
                     },
-                    icon: Icon(Icons.arrow_back, color: Colors.blue[700]),
+                    // icon: Icon(Icons.arrow_forward, color: Colors.white),
                     label: Text(
-                      'ย้อนกลับ',
-                      style: TextStyle(
-                        color: Colors.blue[700],
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/schedule-time');
-                    },
-                    icon: Icon(Icons.arrow_forward, color: Colors.white),
-                    label: Text(
-                      'ถัดไป',
+                      'ดำเนินการ',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -86,6 +88,277 @@ class _SelectableBoxListState extends State<SelectableBoxList> {
   final List<String> titles = ['นัดหมายเเพทย์', 'ตรวจสุขภาพ', 'ฉีดวัคซีน'];
 
   final TextEditingController _detailsController = TextEditingController();
+
+  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _weightController = TextEditingController();
+  final TextEditingController _heightController = TextEditingController();
+  final TextEditingController _onsetDateController = TextEditingController();
+  final TextEditingController _temperatureController = TextEditingController();
+  final TextEditingController _allergyController = TextEditingController();
+  final TextEditingController _chronicController = TextEditingController();
+  bool _hasContactOrTravel = false;
+  String _selectedGender = 'ชาย';
+
+  void _showSymptomInputDialog(String title) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        final dialogWidth = screenWidth > 700 ? 700.0 : screenWidth * 1.6;
+
+        return Center(
+          child: SizedBox(
+            width: dialogWidth,
+            child: AlertDialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              titlePadding: const EdgeInsets.all(16),
+              contentPadding: const EdgeInsets.only(left: 16, right: 16),
+              title: Row(
+                children: [
+                  const Icon(Icons.info_outline, color: Colors.blue),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'กรอกข้อมูลผู้ป่วย - $title',
+                      style: TextStyle(color: Colors.blue[700]),
+                    ),
+                  ),
+                ],
+              ),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildInput(
+                      _detailsController,
+                      'พิมพ์รายละเอียดอาการ...',
+                      maxLines: 3,
+                    ),
+                    _buildInput(_ageController, 'อายุ', isNumber: true),
+                    _buildDropdownGender(),
+                    _buildInput(
+                      _weightController,
+                      'น้ำหนัก (กก.)',
+                      isNumber: true,
+                    ),
+                    _buildInput(
+                      _heightController,
+                      'ส่วนสูง (ซม.)',
+                      isNumber: true,
+                    ),
+                    _buildDatePicker(context),
+                    _buildInput(
+                      _temperatureController,
+                      'อุณหภูมิ (°C)',
+                      isNumber: true,
+                    ),
+                    _buildInput(
+                      _allergyController,
+                      'ประวัติแพ้ยา (ถ้าไม่มีให้เว้นว่าง)',
+                    ),
+                    _buildInput(_chronicController, 'โรคประจำตัว เช่น เบาหวาน'),
+                    const SizedBox(height: 8),
+                  ],
+                ),
+              ),
+              actionsPadding: const EdgeInsets.only(right: 16, bottom: 12),
+              actions: [
+                OutlinedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text(
+                    'ยกเลิก',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+                FilledButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    final Map<String, dynamic> patientData = {
+                      'symptom': _detailsController.text,
+                      'age': _ageController.text,
+                      'gender': _selectedGender,
+                      'weight': _weightController.text,
+                      'height': _heightController.text,
+                      'bmi': _calculateBMI(
+                        _weightController.text,
+                        _heightController.text,
+                      ),
+                      'onset_date': _onsetDateController.text,
+                      'temperature': _temperatureController.text,
+                      'allergy': _allergyController.text,
+                      'chronic_disease': _chronicController.text,
+                      'has_contact_or_travel': _hasContactOrTravel,
+                    };
+
+                    Flushbar(
+                      message: 'บันทึกอาการเรียบร้อยแล้ว',
+                      backgroundColor: Colors.green,
+                      messageColor: Colors.white,
+                      margin: const EdgeInsets.all(16),
+                      borderRadius: BorderRadius.circular(12),
+                      duration: const Duration(seconds: 2),
+                      flushbarPosition: FlushbarPosition.TOP,
+                    ).show(context);
+
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(
+                    //     content: const Text(
+                    //       'บันทึกอาการเรียบร้อยแล้ว',
+                    //       style: TextStyle(color: Colors.white),
+                    //     ),
+                    //     backgroundColor: Colors.green,
+                    //     behavior: SnackBarBehavior.floating,
+                    //     margin: const EdgeInsets.all(16),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(12),
+                    //     ),
+                    //     duration: const Duration(seconds: 2),
+                    //   ),
+                    // );
+
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      // _showPredictionDialog(patientData);
+                    });
+                  },
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Colors.blue[700],
+                    textStyle: const TextStyle(color: Colors.white),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text('บันทึก'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildInput(
+    TextEditingController controller,
+    String hint, {
+    int maxLines = 1,
+    bool isNumber = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: TextField(
+        controller: controller,
+        keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          hintText: hint,
+          filled: true,
+          fillColor: Colors.grey[100],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDropdownGender() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: DropdownButtonFormField<String>(
+        value: _selectedGender,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.grey[100],
+          hintText: 'เพศ',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+        ),
+        items:
+            ['ชาย', 'หญิง', 'อื่น ๆ'].map((value) {
+              return DropdownMenuItem(value: value, child: Text(value));
+            }).toList(),
+        onChanged: (value) {
+          if (value != null) _selectedGender = value;
+        },
+      ),
+    );
+  }
+
+  Widget _buildDatePicker(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: TextField(
+        controller: _onsetDateController,
+        readOnly: true,
+        onTap: () async {
+          final picked = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime.now(),
+            builder: (context, child) {
+              return Theme(
+                data: ThemeData.light().copyWith(
+                  colorScheme: const ColorScheme.light(
+                    primary: Colors.blue,
+                    onPrimary: Colors.white,
+                    onSurface: Colors.black,
+                  ),
+                  dialogBackgroundColor: Colors.white,
+                ),
+                child: child!,
+              );
+            },
+          );
+          if (picked != null) {
+            _onsetDateController.text =
+                "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+          }
+        },
+        decoration: InputDecoration(
+          hintText: 'วันเริ่มมีอาการ (กดเลือกวันที่)',
+          filled: true,
+          fillColor: Colors.grey[100],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+          suffixIcon: const Icon(Icons.calendar_today, color: Colors.grey),
+        ),
+      ),
+    );
+  }
+
+  InputDecoration _inputDecoration(String hint) => InputDecoration(
+    hintText: hint,
+    filled: true,
+    fillColor: Colors.grey[100],
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+  );
+
+  double _calculateBMI(String weight, String height) {
+    try {
+      final w = double.parse(weight);
+      final h = double.parse(height) / 100;
+      return (h > 0) ? (w / (h * h)) : 0;
+    } catch (_) {
+      return 0;
+    }
+  }
 
   void _showDetailsDialog(String title) {
     _detailsController.clear();
@@ -134,9 +407,9 @@ class _SelectableBoxListState extends State<SelectableBoxList> {
             FilledButton(
               onPressed: () {
                 final symptom = _detailsController.text;
-                Navigator.pop(context); 
+                Navigator.pop(context);
                 Future.delayed(const Duration(milliseconds: 300), () {
-                  _showPredictionDialog(symptom); 
+                  _showPredictionDialog(symptom);
                 });
               },
               style: FilledButton.styleFrom(
@@ -188,9 +461,15 @@ class _SelectableBoxListState extends State<SelectableBoxList> {
 
   @override
   Widget build(BuildContext context) {
+    final List<IconData> icons = [
+      Icons.local_hospital,
+      Icons.healing,
+      Icons.monitor_heart,
+    ];
     return Column(
       children: List.generate(titles.length, (index) {
         final isSelected = selectedIndex == index;
+        final icon = icons[index % icons.length];
 
         return GestureDetector(
           onTap: () {
@@ -198,7 +477,7 @@ class _SelectableBoxListState extends State<SelectableBoxList> {
               selectedIndex = index;
             });
 
-            _showDetailsDialog(titles[index]);
+            _showSymptomInputDialog(titles[index]);
           },
           child: Container(
             height: 80,
@@ -218,11 +497,16 @@ class _SelectableBoxListState extends State<SelectableBoxList> {
             child: Row(
               children: [
                 Container(
-                  width: 20,
-                  height: 20,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
+                    color: isSelected ? Colors.blue[100] : Colors.grey[200],
                     shape: BoxShape.circle,
-                    color: isSelected ? Colors.blue : Colors.grey[300],
+                  ),
+                  child: Icon(
+                    icon,
+                    color: isSelected ? Colors.blue[800] : Colors.grey[700],
+                    size: 20,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -237,7 +521,7 @@ class _SelectableBoxListState extends State<SelectableBoxList> {
                   ),
                 ),
 
-                const Icon(Icons.arrow_forward_ios, size: 16),
+                // const Icon(Icons.arrow_forward_ios, size: 16),
               ],
             ),
           ),

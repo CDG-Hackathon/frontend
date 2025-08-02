@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = [HomeScreen(), AppointmentScreen(), ProfileScreen()];
+  final List<Widget> _screens = [HomeScreen(), ScheduleSelectScreen(), ProfileScreen()];
 
   void _onTabSelected(int index) {
     setState(() {

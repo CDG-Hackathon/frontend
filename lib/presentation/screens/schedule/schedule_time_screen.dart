@@ -3,6 +3,7 @@ import 'package:frontend/presentation/screens/auth/login_screen.dart';
 import 'package:frontend/presentation/screens/auth/ocr_screen.dart';
 import 'package:frontend/presentation/screens/auth/register_screen.dart';
 import 'package:frontend/presentation/widgets/navbar/navbar_widget.dart';
+import 'package:frontend/presentation/widgets/schedule/dot_loading_animation.dart';
 import 'package:frontend/presentation/widgets/schedule/step_progress_indicator.dart';
 
 class ScheduleTimeScreen extends StatelessWidget {
@@ -34,6 +35,20 @@ class ScheduleTimeScreen extends StatelessWidget {
       '23.00-24.00',
     ];
 
+    Map<String, int> bookingCount = {
+      '08.00-09.00': 1,
+      '09.00-10.00': 3,
+      '10.00-11.00': 5, // เต็ม
+      // ...
+    };
+    List<String> recommendedSlots = [
+      '10.00-11.00',
+      '14.00-15.00',
+      '20.00-21.00',
+    ];
+
+    const int maxBookingPerSlot = 5;
+
     String selectedDay = now.day.toString();
     String selectedMonth = now.month.toString();
     String selectedYear = now.year.toString();
@@ -48,7 +63,7 @@ class ScheduleTimeScreen extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const StepProgressIndicator(currentStep: 2),
+                const StepProgressIndicator(currentStep: 3),
                 const SizedBox(height: 20),
 
                 Row(
@@ -77,7 +92,54 @@ class ScheduleTimeScreen extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
+
+                const Text(
+                  'ช่วงเวลาที่แนะนำ',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 12, 105, 180),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 40,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: recommendedSlots.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 12),
+                    itemBuilder: (context, index) {
+                      final slot = recommendedSlots[index];
+                      final isSelected = selectedTime == slot;
+                      return GestureDetector(
+                        onTap: () => setState(() => selectedTime = slot),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 9),
+                          decoration: BoxDecoration(
+                            color: isSelected ? Colors.blue[700] : Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color:
+                                  isSelected
+                                      ? Colors.blue[700]!
+                                      : Colors.blue[100]!,
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            slot,
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : Colors.black87,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
 
                 const Text(
                   'เลือกช่วงเวลา',
@@ -89,20 +151,36 @@ class ScheduleTimeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                SizedBox(
-                  height: 250,
+                Expanded(
                   child: GridView.count(
                     crossAxisCount: 3,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
-                    childAspectRatio: 2.5,
-                    physics: const NeverScrollableScrollPhysics(),
+                    childAspectRatio: 1.8,
+                    physics:
+                        const BouncingScrollPhysics(), 
                     children:
                         timeSlots.map((slot) {
                           final isSelected = selectedTime == slot;
+                          final booked = bookingCount[slot] ?? 0;
+                          final percent = booked / maxBookingPerSlot;
+
+                          Color progressColor;
+                          if (percent >= 0.8) {
+                            progressColor = Colors.redAccent;
+                          } else if (percent >= 0.4) {
+                            progressColor = Colors.orangeAccent;
+                          } else {
+                            progressColor = Colors.greenAccent;
+                          }
+
                           return GestureDetector(
                             onTap: () => setState(() => selectedTime = slot),
                             child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 6,
+                              ),
                               decoration: BoxDecoration(
                                 color:
                                     isSelected
@@ -115,17 +193,37 @@ class ScheduleTimeScreen extends StatelessWidget {
                                           ? Colors.blue[700]!
                                           : Colors.blue[100]!,
                                 ),
+                                boxShadow: [
+                                  if (isSelected)
+                                    BoxShadow(
+                                      color: Colors.blue.withOpacity(0.3),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                ],
                               ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                slot,
-                                style: TextStyle(
-                                  color:
-                                      isSelected
-                                          ? Colors.white
-                                          : Colors.black87,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    slot,
+                                    style: TextStyle(
+                                      color:
+                                          isSelected
+                                              ? Colors.white
+                                              : Colors.black87,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  LinearProgressIndicator(
+                                    value: percent,
+                                    backgroundColor: Colors.grey[300],
+                                    color: progressColor,
+                                    minHeight: 6,
+                                  ),
+                                ],
                               ),
                             ),
                           );
@@ -135,7 +233,7 @@ class ScheduleTimeScreen extends StatelessWidget {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 32,
+                    vertical: 12,
                     horizontal: 0,
                   ),
                   child: Row(
@@ -162,13 +260,33 @@ class ScheduleTimeScreen extends StatelessWidget {
                       ),
                       ElevatedButton.icon(
                         onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            '/schedule-confirmation',
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            barrierColor: Colors.transparent,
+                            builder: (context) {
+                              return Center(
+                                child: DotLoadingAnimation(
+                                  dotSize: 14,
+                                  dotColor: Colors.blue,
+                                ),
+                              );
+                            },
+                          );
+
+                          Future.delayed(
+                            const Duration(seconds: 2, milliseconds: 0),
+                            () {
+                              Navigator.pop(context); 
+                              Navigator.pushNamed(
+                                context,
+                                '/schedule-confirmation',
+                              );
+                            },
                           );
                         },
-                        // icon: Icon(Icons.arrow_forward, color: Colors.white),
-                        label: Text(
+                        icon: const Icon(Icons.check, color: Colors.white),
+                        label: const Text(
                           'ยืนยันการนัดหมาย',
                           style: TextStyle(
                             color: Colors.white,
@@ -206,6 +324,7 @@ class ScheduleTimeScreen extends StatelessWidget {
           Text(label),
           const SizedBox(height: 4),
           Container(
+            height: 40,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.blue[100]!),

@@ -43,6 +43,7 @@ dependencies:
   path_provider: ^2.0.11
   camera_web: ^0.3.0
   image_picker: ^0.8.7+4
+  another_flushbar: ^1.10.24
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,7 @@ flutter:
     - assets/images/sch_grey.svg
     - assets/images/user_blue.svg
     - assets/images/user_grey.svg
+    - assets/map_prototype2.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

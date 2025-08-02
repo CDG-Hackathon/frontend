@@ -14,7 +14,7 @@ class ScheduleConfirmationScreen extends StatelessWidget {
         child: Column(
           children: const [
             SizedBox(height: 20),
-            StepProgressIndicator(currentStep: 3),
+            StepProgressIndicator(currentStep: 4),
             SizedBox(height: 60),
             ScheduleSuccessBox(),
           ],
